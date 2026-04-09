@@ -23,3 +23,10 @@ class estudiante_view():
 
             if verificate:
                 break
+
+    def pedir_datos_estudiante():
+        nombre = input("Nombre: ")
+        correo = input("Correo: ")
+        nota = float(input("Nota: "))
+
+        estudiante_controller.crear_estudiante(nombre, correo, nota)
