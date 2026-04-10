@@ -1,11 +1,12 @@
 import sqlite3
+from models.estudiante import estudiante
 class crud:
     """
     Módulo de operaciones CRUD para la gestión de estudiantes.
     Contiene funciones para crear , consultar , actualizar y eliminar
     registros en la base de datos SQLite.
     """
-    def crear(conn: sqlite3.Connection , nombre: str , correo: str , nota: float) -> None :
+    def crear(conn: sqlite3.Connection , estudiante: estudiante) -> None :
 
         """
         Inserta un nuevo estudiante en la base de datos.
@@ -15,8 +16,8 @@ class crud:
         nota: nota del estudiante
         """
         conn.execute(
-            "INSERT INTO estudiantes (nombre , correo , nota) VALUES (?, ?, ?)",
-            (nombre , correo , nota)
+            "INSERT INTO estudiantes (nombre, correo, nota) VALUES (?, ?, ?)",
+            (estudiante.nombre, estudiante.correo, estudiante.nota)
         )
         conn.commit ()
 
