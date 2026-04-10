@@ -5,9 +5,9 @@ class database:
     def crear_tabla(conn):
         conn.execute(
         """CREATE TABLE IF NOT EXISTS estudiantes(
-        id INTEGER, PRIMAY KEY AUTOINCREMENT
-        nombre TEXT
-        correo TEXT
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT,
+        correo TEXT,
         nota REAL
         )
         """)
