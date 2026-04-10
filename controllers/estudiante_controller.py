@@ -58,11 +58,12 @@ class estudiante_controller:
 
         crud.crear(conn, newEstudiante)
 
-def listar_estudiantes():
-    """Metodo para llamar la tabla y aplicarle la función de leer procedente de crud
-    """    
-    conn = database.conectar()
+    def listar_estudiantes():
+        """Metodo para llamar la tabla y aplicarle la función de leer procedente de crud
+        """    
+        conn = database.conectar()
 
-    estudiantes = crud.leer(conn)
-    from views.estudiante_view import estudiante_view
-    estudiante_view.mostrar_lista_estudiantes(estudiantes)
+        estudiantes = crud.leer(conn)
+        from views.estudiante_view import estudiante_view
+        estudiante_view.mostrar_lista_estudiantes(estudiantes)
+
