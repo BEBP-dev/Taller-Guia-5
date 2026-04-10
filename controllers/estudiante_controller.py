@@ -81,6 +81,11 @@ class estudiante_controller:
         crud.actualizar(conn, id_estudiante, nueva_nota)
 
     def eliminar_estudiante(id_estudiante):
+        """Metodo que se encarga de llamar crud para eliminar un estudiante
+
+        Args:
+            id_estudiante (int): ID del estudiante a eliminar
+        """        
         conn = database.conectar()
 
         crud.eliminar(conn, id_estudiante)

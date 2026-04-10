@@ -56,6 +56,8 @@ class estudiante_view():
 
     @staticmethod
     def pedir_eliminar_estudiante():
+        """Metodo que se encarga de pedir el ID del estudiante a eliminar de la lista
+        """        
         id_estudiante = int(input("ID: "))
 
         estudiante_controller.eliminar_estudiante(id_estudiante)
