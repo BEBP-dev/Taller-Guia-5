@@ -2,7 +2,8 @@ from controllers.estudiante_controller import estudiante_controller
 
 class estudiante_view():
     """Clase estudiante_view, que maneja los menus necesarios del programa
-    """          
+    """
+    @staticmethod          
     def main_menu(): 
         """Método main_menu, controla el menu principal que se le muestra al cliente al iniciar el programa
         """ 
@@ -24,7 +25,10 @@ class estudiante_view():
             if verificate:
                 break
 
+    @staticmethod
     def pedir_datos_estudiante():
+        """Metodo que pide los datos del estudiante en la vista para crearlo
+        """        
         nombre = input("Nombre: ")
         correo = input("Correo: ")
         nota = float(input("Nota: "))
