@@ -24,10 +24,11 @@ class estudiante_controller:
                     estudiante_view.pedir_datos_estudiante()
                     return False
                 case 2:
-                    listar_estudiantes()
+                    estudiante_controller.listar_estudiantes()
                     return False
                 case 3:
-                    print()
+                    from views.estudiante_view import estudiante_view
+                    estudiante_view.pedir_nueva_nota()
                     return False
                 case 4: 
                     print()
@@ -66,4 +67,8 @@ class estudiante_controller:
         estudiantes = crud.leer(conn)
         from views.estudiante_view import estudiante_view
         estudiante_view.mostrar_lista_estudiantes(estudiantes)
+    
+    def cambiar_nota(id_estudiante, nueva_nota):
+        conn = database.conectar()
 
+        crud.actualizar(conn, id_estudiante, nueva_nota)

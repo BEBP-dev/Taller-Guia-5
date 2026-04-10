@@ -44,3 +44,10 @@ class estudiante_view():
         """        
         for estudiante in estudiantes:
             print(estudiante)
+
+    @staticmethod
+    def pedir_nueva_nota():
+        id_estudiante = int(input("ID: "))
+        nueva_nota = float(input("Nueva nota: "))
+
+        estudiante_controller.cambiar_nota(id_estudiante, nueva_nota)
