@@ -59,6 +59,8 @@ class estudiante_controller:
         crud.crear(conn, newEstudiante)
 
 def listar_estudiantes():
+    """Metodo para llamar la tabla y aplicarle la función de leer procedente de crud
+    """    
     conn = database.conectar()
 
     estudiantes = crud.leer(conn)
