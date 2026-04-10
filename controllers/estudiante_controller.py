@@ -69,6 +69,12 @@ class estudiante_controller:
         estudiante_view.mostrar_lista_estudiantes(estudiantes)
     
     def cambiar_nota(id_estudiante, nueva_nota):
+        """Metodo que se encarga de llamar crud para actualizar la nota de un estudiante
+
+        Args:
+            id_estudiante (int): ID del estudiante al que se le desea actualizar la nota
+            nueva_nota (float): Nueva nota del estudiante
+        """        
         conn = database.conectar()
 
         crud.actualizar(conn, id_estudiante, nueva_nota)
