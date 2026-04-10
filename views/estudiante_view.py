@@ -34,3 +34,8 @@ class estudiante_view():
         nota = float(input("Nota: "))
 
         estudiante_controller.crear_estudiante(nombre, correo, nota)
+
+    @staticmethod
+    def mostrar_lista_estudiantes(estudiantes):
+        for estudiante in estudiantes:
+            print(estudiante)

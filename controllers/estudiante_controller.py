@@ -24,7 +24,7 @@ class estudiante_controller:
                     estudiante_view.pedir_datos_estudiante()
                     return False
                 case 2:
-                    print()
+                    listar_estudiantes()
                     return False
                 case 3:
                     print()
@@ -57,3 +57,10 @@ class estudiante_controller:
         database.crear_tabla(conn)
 
         crud.crear(conn, newEstudiante)
+
+def listar_estudiantes():
+    conn = database.conectar()
+
+    estudiantes = crud.leer(conn)
+    from views.estudiante_view import estudiante_view
+    estudiante_view.mostrar_lista_estudiantes(estudiantes)
