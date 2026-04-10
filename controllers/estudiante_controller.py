@@ -1,6 +1,6 @@
-from views.estudiante_view import estudiante_view
 from database.conexion import database
 from data.crud import crud
+from models.estudiante import estudiante
 
 class estudiante_controller:
     """Clase que maneja la información del estudiante entre la vista del programa y el modelo de negocio
@@ -20,6 +20,7 @@ class estudiante_controller:
 
             match(option):
                 case 1:
+                    from views.estudiante_view import estudiante_view
                     estudiante_view.pedir_datos_estudiante()
                     return False
                 case 2:
@@ -42,8 +43,17 @@ class estudiante_controller:
             print("Opción invalida, igrese un número del 1 al 5")
             return False
     
+    
     def crear_estudiante(nombre, correo, nota):
+        """Clase que crea el estudiante 
+
+        Args:
+            nombre (str): nombre del estudiante
+            correo (str): correo del estudiante
+            nota (float): nota del estudiante
+        """
+        newEstudiante = estudiante(nombre, correo, nota)
         conn = database.conectar()
         database.crear_tabla(conn)
 
-        crud.crear(conn, nombre, correo, nota)
+        crud.crear(conn, newEstudiante)
