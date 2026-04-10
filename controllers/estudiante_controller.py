@@ -31,7 +31,8 @@ class estudiante_controller:
                     estudiante_view.pedir_nueva_nota()
                     return False
                 case 4: 
-                    print()
+                    from views.estudiante_view import estudiante_view
+                    estudiante_view.pedir_eliminar_estudiante()
                     return False
                 case 5:
                     print("Saliendo del programa.....")
@@ -78,3 +79,8 @@ class estudiante_controller:
         conn = database.conectar()
 
         crud.actualizar(conn, id_estudiante, nueva_nota)
+
+    def eliminar_estudiante(id_estudiante):
+        conn = database.conectar()
+
+        crud.eliminar(conn, id_estudiante)
