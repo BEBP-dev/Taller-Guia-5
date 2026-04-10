@@ -44,3 +44,12 @@ class estudiante_view():
         """        
         for estudiante in estudiantes:
             print(estudiante)
+
+    @staticmethod
+    def pedir_nueva_nota():
+        """Metodo que se encarga de pedir el ID de un estudiante al que se le necesite cambiar su nota, y pedir la nueva nota.
+        """        
+        id_estudiante = int(input("ID: "))
+        nueva_nota = float(input("Nueva nota: "))
+
+        estudiante_controller.cambiar_nota(id_estudiante, nueva_nota)
