@@ -1,6 +1,6 @@
 from controllers.estudiante_controller import estudiante_controller
 
-class estudiante_view():
+class estudiante_view:
     """Clase estudiante_view, que maneja los menus necesarios del programa
     """
     @staticmethod          
@@ -40,23 +40,18 @@ class estudiante_view():
         for estudiante in estudiantes:
             print(f'ID: {estudiante.getID()} - Nombre: {estudiante.getName()} - Correo: {estudiante.getCorreo()} - Nota: {estudiante.getNota()}')
 
-    @staticmethod
-    def pedir_nueva_nota():
+    
+    def pedir_nueva_nota(self):
         """Metodo que se encarga de pedir el ID de un estudiante al que se le necesite cambiar su nota, y pedir la nueva nota.
         """        
-        id_estudiante = int(input("ID: "))
         nueva_nota = float(input("Nueva nota: "))
 
-        return id_estudiante, nueva_nota
+        return nueva_nota
 
-    @staticmethod
-    def pedir_eliminar_estudiante():
-        """Metodo que se encarga de pedir el ID del estudiante a eliminar de la lista
-        """        
-        id_estudiante = int(input("ID: "))
 
-        estudiante_controller.eliminar_estudiante(id_estudiante)
-        
     def mostrarMensaje(self, mensaje):
         print(mensaje)
     
+    @staticmethod
+    def pedir_id():
+        return input("Ingresa el ID del estudiante para modificar/Eliminar: ")
