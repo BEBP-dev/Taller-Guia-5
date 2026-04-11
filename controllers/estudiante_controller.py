@@ -81,6 +81,7 @@ class estudiante_controller:
         
         if confirmacion.lower() == "s":
             self.crud.eliminar(id)
+            self.vista.mostrarMensaje("Estudiante eliminado correctamente. ")
         else: 
             self.vista.mostrarMensaje("Operacion cancelada...")
             return
