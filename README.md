@@ -3,7 +3,7 @@ Integrantes:
 Julian Paez - 20251020165
 Brayan Bonilla - 20251020154
 
-Programa modificado para cumplir los requerimientos de buenas prácticas de documentación y código, además de utilizar una estrucutra MVC y utilizando almacenamiento de tipo SQLite y operaiones de tipo CRUD
+Programa modificado para cumplir los requerimientos de buenas prácticas de documentación y código, además de utilizar una estrucutra MVC y utilizando almacenamiento de tipo SQLite y operaciones de tipo CRUD
 
 ## Características
 
