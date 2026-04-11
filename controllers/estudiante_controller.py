@@ -1,5 +1,3 @@
-from database.conexion import database
-from data.crud import crud
 from models.estudiante import estudiante
 
 class estudiante_controller:

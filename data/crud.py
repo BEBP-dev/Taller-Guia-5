@@ -1,4 +1,3 @@
-import sqlite3
 from models.estudiante import estudiante
 class crud:
     """
