@@ -26,14 +26,23 @@ class crud:
         )
         self.db.connection.commit ()
 
-    def leer(conn: sqlite3.Connection) -> list:
+    def leer(self):
         """
         Consulta todos los estudiantes registrados.
-        conn: conexión activa a la base de datos
-        retorna: lista de tuplas con los registros encontrados
+
         """
-        cursor = conn.execute("SELECT * FROM estudiantes")
-        return cursor.fetchall ()
+        filas = self.db.cursor.execute("SELECT id, nombre, correo, nota FROM estudiantes")
+
+        estudiantes = []
+        for fila in filas:
+            est = estudiante(fila[1], fila[2], fila [3])
+            est.id = fila[0]
+            estudiantes.append(est)
+        
+        return estudiantes
+        
+        
+    
     
     def actualizar(conn: sqlite3.Connection , id_estudiante: int , nueva_nota:float) -> None:
         """
