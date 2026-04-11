@@ -57,15 +57,14 @@ class crud:
         
         
 
-    def eliminar(conn: sqlite3.Connection , id_estudiante: int) -> None:
+    def eliminar(self, id):
         """
         Elimina un estudiante de la base de datos.
-        conn: conexión activa a la base de datos
         id_estudiante: identificador del estudiante a eliminar
         """
-        conn.execute(
+        self.db.connection.execute(
             "DELETE FROM estudiantes WHERE id=?",
-            (id_estudiante ,)
+            (id ,)
         )
         
-        conn.commit ()
+        self.db.connection.commit ()
