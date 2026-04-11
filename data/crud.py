@@ -6,53 +6,65 @@ class crud:
     Contiene funciones para crear , consultar , actualizar y eliminar
     registros en la base de datos SQLite.
     """
-    def crear(conn: sqlite3.Connection , estudiante: estudiante) -> None :
+    def __init__(self, database):
+        """Constructor
+
+        Args:
+            database (database): usamos este atributo para mantener un bajo acoplamiento y asi mismo
+            trabajar sobre la base de datos.
+        """
+        self.db = database
+        
+    def crear(self, estudiante):
 
         """
         Inserta un nuevo estudiante en la base de datos.
-        conn: conexión activa a la base de datos
-        nombre: nombre del estudiante
-        correo: correo electrónico del estudiante
-        nota: nota del estudiante
         """
-        conn.execute(
+        self.db.cursor.execute(
             "INSERT INTO estudiantes (nombre, correo, nota) VALUES (?, ?, ?)",
-            (estudiante.nombre, estudiante.correo, estudiante.nota)
+            (estudiante.getName(), estudiante.getCorreo(), estudiante.getNota())
         )
-        conn.commit ()
+        self.db.connection.commit ()
 
-    def leer(conn: sqlite3.Connection) -> list:
+    def leer(self):
         """
         Consulta todos los estudiantes registrados.
-        conn: conexión activa a la base de datos
-        retorna: lista de tuplas con los registros encontrados
-        """
-        cursor = conn.execute("SELECT * FROM estudiantes")
-        return cursor.fetchall ()
-    
-    def actualizar(conn: sqlite3.Connection , id_estudiante: int , nueva_nota:float) -> None:
-        """
-        Actualiza la nota de un estudiante existente.
-        conn: conexión activa a la base de datos
-        id_estudiante: identificador del estudiante
-        nueva_nota: nueva nota a asignar
-        """
-        conn.execute(
-            "UPDATE estudiantes SET nota=? WHERE id=?",
-            (nueva_nota , id_estudiante)
-        )
-        
-        conn.commit ()
 
-    def eliminar(conn: sqlite3.Connection , id_estudiante: int) -> None:
+        """
+        filas = self.db.cursor.execute("SELECT id, nombre, correo, nota FROM estudiantes")
+
+        estudiantes = []
+        for id_, nombre, correo, nota in filas:
+            est = estudiante(id_, nombre, correo, nota)
+            estudiantes.append(est)
+        
+        return estudiantes
+        
+        
+    def actualizar(self, id, nueva_nota):
+        
+        """
+        Actualiza los datos de un estudiante registrado en la base de datos.
+        """
+        self.db.cursor.execute("""
+            UPDATE estudiantes
+            SET nota = ?
+            WHERE id = ?
+            """,
+            (nueva_nota, id)
+        )
+        self.db.connection.commit()
+        
+        
+
+    def eliminar(self, id):
         """
         Elimina un estudiante de la base de datos.
-        conn: conexión activa a la base de datos
         id_estudiante: identificador del estudiante a eliminar
         """
-        conn.execute(
+        self.db.connection.execute(
             "DELETE FROM estudiantes WHERE id=?",
-            (id_estudiante ,)
+            (id ,)
         )
         
-        conn.commit ()
+        self.db.connection.commit ()

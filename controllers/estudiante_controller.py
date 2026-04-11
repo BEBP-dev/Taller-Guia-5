@@ -3,50 +3,43 @@ from data.crud import crud
 from models.estudiante import estudiante
 
 class estudiante_controller:
+    def __init__(self, vista, baseDatos, crud):
+        self.vista = vista
+        self.baseDatos = baseDatos
+        self.crud = crud
+        
     """Clase que maneja la información del estudiante entre la vista del programa y el modelo de negocio
     """    
-    def main_menu_controller(option):
-        """Método que maneja la información obtenida en el menu principal y la conecta con el modelo de negocio
+    def main_menu_controller(self):
+        """Metodo que consiste en un loop infinito para el metodo main_menu() de la vista y opcion().
+        En este metodo se maneja la lógica de negocio manteniendo todo dentro de esta misma clase.
 
-        Args:
-            option (int): Opción elegida por el usuario en la vista
-
-        Returns:
-            boolean: Returns utilizados para informar a la vista sobre el paso a seguir en el programa
         """        
-
-        try:
-            option=int(option)
-
-            match(option):
-                case 1:
-                    from views.estudiante_view import estudiante_view
-                    estudiante_view.pedir_datos_estudiante()
-                    return False
-                case 2:
-                    estudiante_controller.listar_estudiantes()
-                    return False
-                case 3:
-                    from views.estudiante_view import estudiante_view
-                    estudiante_view.pedir_nueva_nota()
-                    return False
-                case 4: 
-                    from views.estudiante_view import estudiante_view
-                    estudiante_view.pedir_eliminar_estudiante()
-                    return False
-                case 5:
-                    print("Saliendo del programa.....")
-                    return True
-                case _:
-                    print("Opción invalida, igrese un número del 1 al 5")
-                    return False
-
-        except ValueError:
-            print("Opción invalida, igrese un número del 1 al 5")
-            return False
+        while True:
+            self.vista.main_menu()
+            opcion = self.vista.opcion()
+            
+            if opcion == "1":
+                self.crear_estudiante()
+            
+            elif opcion == "2":
+                self.listar_estudiantes()
+            
+            elif opcion == "3":
+                self.cambiar_nota()
+            
+            elif opcion == "4":
+                self.eliminar_estudiante()
+                
+            elif opcion == "5":
+                self.vista.mostrarMensaje("Saliendo del programa...")
+                break
     
+            else:
+                self.vista.mostrarMensaje("Error, opcion invalida.")
+                
     
-    def crear_estudiante(nombre, correo, nota):
+    def crear_estudiante(self):
         """Clase que crea el estudiante 
 
         Args:
@@ -54,38 +47,46 @@ class estudiante_controller:
             correo (str): correo del estudiante
             nota (float): nota del estudiante
         """
-        newEstudiante = estudiante(nombre, correo, nota)
-        conn = database.conectar()
-        database.crear_tabla(conn)
+        nombre, correo, nota = self.vista.pedir_datos_estudiante()
+        newEstudiante = estudiante(None, nombre, correo, nota)
+        
+        self.crud.crear(newEstudiante)
+        self.vista.mostrarMensaje("Creado con exito!")
 
-        crud.crear(conn, newEstudiante)
 
-    def listar_estudiantes():
+    def listar_estudiantes(self):
         """Metodo para llamar la tabla y aplicarle la función de leer procedente de crud
         """    
-        conn = database.conectar()
-
-        estudiantes = crud.leer(conn)
-        from views.estudiante_view import estudiante_view
-        estudiante_view.mostrar_lista_estudiantes(estudiantes)
+        estudiantes = self.crud.leer()
+        if not estudiantes:
+            self.vista.mostrarMensaje("Base de datos vacia....")
+            return
+        
+        self.vista.mostrar_lista_estudiantes(estudiantes)
     
-    def cambiar_nota(id_estudiante, nueva_nota):
+    def cambiar_nota(self):
         """Metodo que se encarga de llamar crud para actualizar la nota de un estudiante
 
         Args:
-            id_estudiante (int): ID del estudiante al que se le desea actualizar la nota
             nueva_nota (float): Nueva nota del estudiante
         """        
-        conn = database.conectar()
+        id = self.vista.pedir_id()
+        nueva_nota = self.vista.pedir_nueva_nota()
+        self.crud.actualizar(id, nueva_nota)
+        self.vista.mostrarMensaje("Modificado con exito!")
+                
 
-        crud.actualizar(conn, id_estudiante, nueva_nota)
-
-    def eliminar_estudiante(id_estudiante):
-        """Metodo que se encarga de llamar crud para eliminar un estudiante
-
-        Args:
-            id_estudiante (int): ID del estudiante a eliminar
-        """        
-        conn = database.conectar()
-
-        crud.eliminar(conn, id_estudiante)
+    def eliminar_estudiante(self):
+        """Metodo que se encarga de pedir los datos necesarios y enviarlos al crud par eliminar un estudiante.
+        """     
+        id = self.vista.pedir_id()
+        self.vista.mostrarMensaje(f'Esta seguro de eliminar al usuario con id: {id} (s/n): ')
+        confirmacion = input()
+        
+        if confirmacion.lower() == "s":
+            self.crud.eliminar(id)
+            self.vista.mostrarMensaje("Estudiante eliminado correctamente. ")
+        else: 
+            self.vista.mostrarMensaje("Operacion cancelada...")
+            return
+        
