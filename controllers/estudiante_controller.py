@@ -3,48 +3,40 @@ from data.crud import crud
 from models.estudiante import estudiante
 
 class estudiante_controller:
+    def __init__(self, vista, baseDatos):
+        self.vista = vista
+        self.baseDatos = baseDatos
+        
     """Clase que maneja la información del estudiante entre la vista del programa y el modelo de negocio
     """    
-    def main_menu_controller(option):
-        """Método que maneja la información obtenida en el menu principal y la conecta con el modelo de negocio
+    def main_menu_controller(self):
+        """Metodo que consiste en un loop infinito para el metodo main_menu() de la vista y opcion().
+        En este metodo se maneja la lógica de negocio manteniendo todo dentro de esta misma clase.
 
-        Args:
-            option (int): Opción elegida por el usuario en la vista
-
-        Returns:
-            boolean: Returns utilizados para informar a la vista sobre el paso a seguir en el programa
         """        
-
-        try:
-            option=int(option)
-
-            match(option):
-                case 1:
-                    from views.estudiante_view import estudiante_view
-                    estudiante_view.pedir_datos_estudiante()
-                    return False
-                case 2:
-                    estudiante_controller.listar_estudiantes()
-                    return False
-                case 3:
-                    from views.estudiante_view import estudiante_view
-                    estudiante_view.pedir_nueva_nota()
-                    return False
-                case 4: 
-                    from views.estudiante_view import estudiante_view
-                    estudiante_view.pedir_eliminar_estudiante()
-                    return False
-                case 5:
-                    print("Saliendo del programa.....")
-                    return True
-                case _:
-                    print("Opción invalida, igrese un número del 1 al 5")
-                    return False
-
-        except ValueError:
-            print("Opción invalida, igrese un número del 1 al 5")
-            return False
+        while True:
+            self.vista.main_menu()
+            opcion = self.vista.opcion()
+            
+            if opcion == "1":
+                self.crear_estudiante()
+            
+            elif opcion == "2":
+                self.listar_estudiantes()
+            
+            elif opcion == "3":
+                self.cambiar_nota()
+            
+            elif opcion == "4":
+                self.eliminar_estudiante()
+                
+            elif opcion == "5":
+                self.vista.mostrarMensaje("Saliendo del programa...")
+                break
     
+            else:
+                self.vista.mostrarMensaje("Error, opcion invalida.")
+                
     
     def crear_estudiante(nombre, correo, nota):
         """Clase que crea el estudiante 
