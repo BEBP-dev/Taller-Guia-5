@@ -38,7 +38,7 @@ class estudiante_view():
             estudiantes (estudiantes): apertura del database para poder leer los datos
         """        
         for estudiante in estudiantes:
-            print(estudiante)
+            print(f'Nombre: {estudiante.getName()} - Correo: {estudiante.getCorreo()} - Nota: {estudiante.getNota()}')
 
     @staticmethod
     def pedir_nueva_nota():
