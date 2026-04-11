@@ -58,6 +58,10 @@ class estudiante_controller:
         """Metodo para llamar la tabla y aplicarle la función de leer procedente de crud
         """    
         estudiantes = self.crud.leer()
+        if not estudiantes:
+            self.vista.mostrarMensaje("Base de datos vacia....")
+            return
+        
         self.vista.mostrar_lista_estudiantes(estudiantes)
     
     def cambiar_nota(self):
