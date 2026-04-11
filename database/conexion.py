@@ -6,7 +6,7 @@ class database:
         self.crear_tabla()
     
     def crear_tabla(self):
-        self.cursos.execute(
+        self.cursor.execute(
             """CREATE TABLE IF NOT EXISTS estudiantes(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nombre TEXT,
