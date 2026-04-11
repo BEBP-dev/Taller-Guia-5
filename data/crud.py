@@ -34,16 +34,13 @@ class crud:
         filas = self.db.cursor.execute("SELECT id, nombre, correo, nota FROM estudiantes")
 
         estudiantes = []
-        for fila in filas:
-            est = estudiante(fila[1], fila[2], fila [3])
-            est.id = fila[0]
+        for id_, nombre, correo, nota in filas:
+            est = estudiante(id_, nombre, correo, nota)
             estudiantes.append(est)
         
         return estudiantes
         
         
-    
-    
     def actualizar(conn: sqlite3.Connection , id_estudiante: int , nueva_nota:float) -> None:
         """
         Actualiza la nota de un estudiante existente.
