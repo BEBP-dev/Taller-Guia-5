@@ -41,19 +41,21 @@ class crud:
         return estudiantes
         
         
-    def actualizar(conn: sqlite3.Connection , id_estudiante: int , nueva_nota:float) -> None:
-        """
-        Actualiza la nota de un estudiante existente.
-        conn: conexión activa a la base de datos
-        id_estudiante: identificador del estudiante
-        nueva_nota: nueva nota a asignar
-        """
-        conn.execute(
-            "UPDATE estudiantes SET nota=? WHERE id=?",
-            (nueva_nota , id_estudiante)
-        )
+    def actualizar(self, id, nueva_nota):
         
-        conn.commit ()
+        """
+        Actualiza los datos de un estudiante registrado en la base de datos.
+        """
+        self.db.cursor.execute("""
+            UPDATE estudiantes
+            SET nota = ?
+            WHERE id = ?
+            """,
+            (nueva_nota, id)
+        )
+        self.db.connection.commit()
+        
+        
 
     def eliminar(conn: sqlite3.Connection , id_estudiante: int) -> None:
         """
