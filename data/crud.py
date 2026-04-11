@@ -6,20 +6,25 @@ class crud:
     Contiene funciones para crear , consultar , actualizar y eliminar
     registros en la base de datos SQLite.
     """
-    def crear(conn: sqlite3.Connection , estudiante: estudiante) -> None :
+    def __init__(self, database):
+        """Constructor
+
+        Args:
+            database (database): usamos este atributo para mantener un bajo acoplamiento y asi mismo
+            trabajar sobre la base de datos.
+        """
+        self.db = database
+        
+    def crear(self, estudiante):
 
         """
         Inserta un nuevo estudiante en la base de datos.
-        conn: conexión activa a la base de datos
-        nombre: nombre del estudiante
-        correo: correo electrónico del estudiante
-        nota: nota del estudiante
         """
-        conn.execute(
+        self.db.cursor.execute(
             "INSERT INTO estudiantes (nombre, correo, nota) VALUES (?, ?, ?)",
-            (estudiante.nombre, estudiante.correo, estudiante.nota)
+            (estudiante.getName(), estudiante.getCorreo(), estudiante.getNota())
         )
-        conn.commit ()
+        self.db.connection.commit ()
 
     def leer(conn: sqlite3.Connection) -> list:
         """
