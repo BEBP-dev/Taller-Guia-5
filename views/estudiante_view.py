@@ -24,11 +24,11 @@ class estudiante_view():
     def pedir_datos_estudiante():
         """Metodo que pide los datos del estudiante en la vista para crearlo
         """        
-        nombre = input("Nombre: ")
-        correo = input("Correo: ")
-        nota = float(input("Nota: "))
+        nombre = input("Ingrese el Nombre del estudiante: ")
+        correo = input("Ingrese el Correo del estudiante: ")
+        nota = float(input("Ingrese la Nota del estudiante (en formato #.#): "))
 
-        estudiante_controller.crear_estudiante(nombre, correo, nota)     
+        return nombre, correo, nota  
 
     @staticmethod
     def mostrar_lista_estudiantes(estudiantes):
@@ -59,3 +59,4 @@ class estudiante_view():
         
     def mostrarMensaje(self, mensaje):
         print(mensaje)
+    
