@@ -66,17 +66,22 @@ class estudiante_controller:
         Args:
             nueva_nota (float): Nueva nota del estudiante
         """        
-        id_estudiante, nueva_nota = self.vista.pedir_nueva_nota()
-        self.crud.actualizar(id_estudiante, nueva_nota)
+        id = self.vista.pedir_id()
+        nueva_nota = self.vista.pedir_nueva_nota()
+        self.crud.actualizar(id, nueva_nota)
         self.vista.mostrarMensaje("Modificado con exito!")
                 
 
-    def eliminar_estudiante(id_estudiante):
-        """Metodo que se encarga de llamar crud para eliminar un estudiante
-
-        Args:
-            id_estudiante (int): ID del estudiante a eliminar
-        """        
-        conn = database.conectar()
-
-        crud.eliminar(conn, id_estudiante)
+    def eliminar_estudiante(self):
+        """Metodo que se encarga de pedir los datos necesarios y enviarlos al crud par eliminar un estudiante.
+        """     
+        id = self.vista.pedir_id()
+        self.vista.mostrarMensaje(f'Esta seguro de eliminar al usuario con id: {id} (s/n): ')
+        confirmacion = input()
+        
+        if confirmacion.lower() == "s":
+            self.crud.eliminar(id)
+        else: 
+            self.vista.mostrarMensaje("Operacion cancelada...")
+            return
+        
