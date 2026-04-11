@@ -47,7 +47,7 @@ class estudiante_view():
         id_estudiante = int(input("ID: "))
         nueva_nota = float(input("Nueva nota: "))
 
-        estudiante_controller.cambiar_nota(id_estudiante, nueva_nota)
+        return id_estudiante, nueva_nota
 
     @staticmethod
     def pedir_eliminar_estudiante():
