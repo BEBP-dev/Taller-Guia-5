@@ -3,9 +3,10 @@ from data.crud import crud
 from models.estudiante import estudiante
 
 class estudiante_controller:
-    def __init__(self, vista, baseDatos):
+    def __init__(self, vista, baseDatos, crud):
         self.vista = vista
         self.baseDatos = baseDatos
+        self.crud = crud
         
     """Clase que maneja la información del estudiante entre la vista del programa y el modelo de negocio
     """    
@@ -38,7 +39,7 @@ class estudiante_controller:
                 self.vista.mostrarMensaje("Error, opcion invalida.")
                 
     
-    def crear_estudiante(nombre, correo, nota):
+    def crear_estudiante(self):
         """Clase que crea el estudiante 
 
         Args:
@@ -46,11 +47,11 @@ class estudiante_controller:
             correo (str): correo del estudiante
             nota (float): nota del estudiante
         """
+        nombre, correo, nota = self.vista.pedir_datos_estudiante()
         newEstudiante = estudiante(nombre, correo, nota)
-        conn = database.conectar()
-        database.crear_tabla(conn)
+        
+        self.crud.crear(newEstudiante)
 
-        crud.crear(conn, newEstudiante)
 
     def listar_estudiantes():
         """Metodo para llamar la tabla y aplicarle la función de leer procedente de crud
