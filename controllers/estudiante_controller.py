@@ -48,9 +48,10 @@ class estudiante_controller:
             nota (float): nota del estudiante
         """
         nombre, correo, nota = self.vista.pedir_datos_estudiante()
-        newEstudiante = estudiante(nombre, correo, nota)
+        newEstudiante = estudiante(None, nombre, correo, nota)
         
         self.crud.crear(newEstudiante)
+        self.vista.mostrarMensaje("Creado con exito!")
 
 
     def listar_estudiantes(self):
@@ -59,16 +60,16 @@ class estudiante_controller:
         estudiantes = self.crud.leer()
         self.vista.mostrar_lista_estudiantes(estudiantes)
     
-    def cambiar_nota(id_estudiante, nueva_nota):
+    def cambiar_nota(self):
         """Metodo que se encarga de llamar crud para actualizar la nota de un estudiante
 
         Args:
-            id_estudiante (int): ID del estudiante al que se le desea actualizar la nota
             nueva_nota (float): Nueva nota del estudiante
         """        
-        conn = database.conectar()
-
-        crud.actualizar(conn, id_estudiante, nueva_nota)
+        id_estudiante, nueva_nota = self.vista.pedir_nueva_nota()
+        self.crud.actualizar(id_estudiante, nueva_nota)
+        self.vista.mostrarMensaje("Modificado con exito!")
+                
 
     def eliminar_estudiante(id_estudiante):
         """Metodo que se encarga de llamar crud para eliminar un estudiante
